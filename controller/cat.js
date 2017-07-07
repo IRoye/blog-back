@@ -8,7 +8,12 @@ exports.add = function(req, res){
   let _category = req.body;
   let category = new Cat(_category);
   category.save(function(err, category){
-      if(err) return res.status(403).json({err, msg: '添加失败，请重试'})
+    if(err) {
+      if(err.code == '11000'){
+           return res.json({err, msg: '请勿重复添加', code: '2'})
+      }
+      return res.json({err, msg: '添加失败，请重试', code: '2'})
+    }
       res.json({
           msg: '分类添加成功',
           category
