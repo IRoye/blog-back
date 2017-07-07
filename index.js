@@ -1,17 +1,24 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var app = express();
+const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
+let routes = require('./controller/routes');
 
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
+app.use(cors());
 /**
  * 
  * 根据不同的功能划分模块
  * 
  */
+routes(app);
 
-app.use('/', require('./routers/admin'));
-app.use('/login', require('./routers/admin'));
-// app.use('/api', require('./routers/api'));
-// app.use('/', require('./routers/main'));
+
+
 
 mongoose.connect('mongodb://localhost:27017/blog', function(err){
    if(err){
