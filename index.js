@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 let routes = require('./controller/routes');
 
 
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(cors());
@@ -16,9 +15,6 @@ app.use(cors());
  * 
  */
 routes(app);
-
-
-
 
 mongoose.connect('mongodb://localhost:27017/blog', function(err){
    if(err){
