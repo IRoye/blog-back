@@ -8,11 +8,19 @@
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ObjectId = Schema.Types.ObjectId;
 
 var CatSchema = new Schema(
     {
         tagName: {type: String, unique:true, index: true},
-        createTime:{type:Date, default: Date.now},       
+        createTime:{type:Date, default: Date.now},
+        // 表之间的对应关系
+        products:[
+            {
+                type: ObjectId,
+                ref: 'Product'
+            }
+        ]      
     }
 )
 
