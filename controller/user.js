@@ -1,5 +1,6 @@
 let User = require('../models/user.js');
-
+const crypto = require('crypto');
+const key = "secret-key";
 //注册
 exports.signup = function (req, res) {
     console.log('请求消息：', req.body);
@@ -24,8 +25,32 @@ exports.signup = function (req, res) {
         }
     })
 }
-
 //登录
 exports.signin = function (req, res) {
-    console.log();
+    console.log('登录请求消息', req.body);
+    let _user = req.body;
+    let resultPass = converPass(_user.userpass, key);
+    console.log('加密后密码：', resultPass);
+    // 加密pass
+    User.findOne({
+        username: _user.username,
+        userpass: resultPass
+    }, function (err, user) {
+        console.log('user:', user);
+        if (err) {
+            return res.json({code: '3', msg: '登录失败， 请重试', err})
+        }
+        if (user) {
+            return res.json({code: '0', msg: '登录成功！'})
+        } else {
+            return res.json({code: '2', msg: '该用户没有注册！'})
+        }
+    })
+}
+
+
+function converPass(originalPass, secret){
+   return  crypto.createHmac('sha256', secret)
+                   .update(originalPass)
+                   .digest('hex');
 }

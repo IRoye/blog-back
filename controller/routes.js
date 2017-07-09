@@ -17,4 +17,7 @@ module.exports = function (app) {
 
     // 注册
     app.post('/user/signup', User.signup);
+
+    // 登录
+    app.post('/user/signin', User.signin);
 }
