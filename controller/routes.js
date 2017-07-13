@@ -8,8 +8,6 @@ module.exports = function (app) {
     //获取标签列表
     app.get('/catList', Cat.list);
 
-
-
     // product 相关的信息
     // 新增product    
     app.post('/product/new', Product.new);
@@ -20,4 +18,7 @@ module.exports = function (app) {
 
     // 登录
     app.post('/user/signin', User.signin);
+
+    // 这部分， 通过localStorge中保存的userId来查询用户的信息
+    app.get('/user/:userId', User.getUserById);
 }

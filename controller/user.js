@@ -37,15 +37,35 @@ exports.signin = function (req, res) {
         userpass: resultPass
     }, function (err, user) {
         console.log('user:', user);
+        let _user = {
+            username: user.username,
+            userId : user._id,
+        }
         if (err) {
-            return res.json({code: '3', msg: '登录失败， 请重试', err})
+            return res.json({code: '3', msg: '登录失败， 请重试', err});
         }
         if (user) {
-            return res.json({code: '0', msg: '登录成功！'})
+            return res.json({code: '0', msg: '登录成功！', _user});
         } else {
-            return res.json({code: '2', msg: '该用户没有注册！'})
+            return res.json({code: '2', msg: '该用户没有注册！'});
         }
     })
+}
+
+
+exports.getUserById = function(req, res){
+   User.findOne({_id:req.params.userId}, function(err, user){
+     if(err){
+         res.json({msg: '查找用户失败', err});
+     }
+     if(user){
+         let _user = {
+            username: user.username,
+            userId : user._id,
+         }
+         return res.json({msg: '读取用户成功', _user});
+     }
+   })
 }
 
 
