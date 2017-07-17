@@ -15,6 +15,7 @@ app.use(cors());
  * 
  */
 routes(app);
+mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost:27017/blog', function(err){
    if(err){
