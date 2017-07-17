@@ -25,4 +25,7 @@ module.exports = function (app) {
 
     //获取文章列表
     app.get('/post/getPosts', Post.getPosts);
+
+    // 获取单篇文章
+    app.get('/post/getPost', Post.getPost);
 }
