@@ -28,4 +28,7 @@ module.exports = function (app) {
 
     // 获取单篇文章
     app.get('/post/getPost', Post.getPost);
+
+    // 修改单篇文章
+    app.post('/post/editPost', Post.editPost);
 }
